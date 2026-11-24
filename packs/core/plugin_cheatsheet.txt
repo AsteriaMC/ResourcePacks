@@ -1,0 +1,28 @@
+# LUCKPERMS / TAB / ESSENTIALS CHEAT SHEET
+===========================================
+Pack: AsteriaMC Resource Pack
+
+[ rank_patreon.png ]
+  In-Game Tellraw Test:       /tellraw @a {"text":"\uE800"}
+  TAB Plugin (groups.yml):    tabprefix: "\uE800 &f"
+  LuckPerms Command:          /lp group rank_patreon meta setprefix 100 "\uE800 "
+  EssentialsX (config.yml):   rank_patreon: '\uE800 {DISPLAYNAME}'
+
+[ rank_staff.png ]
+  In-Game Tellraw Test:       /tellraw @a {"text":"\uE801"}
+  TAB Plugin (groups.yml):    tabprefix: "\uE801 &f"
+  LuckPerms Command:          /lp group rank_staff meta setprefix 100 "\uE801 "
+  EssentialsX (config.yml):   rank_staff: '\uE801 {DISPLAYNAME}'
+
+[ rank_support.png ]
+  In-Game Tellraw Test:       /tellraw @a {"text":"\uE802"}
+  TAB Plugin (groups.yml):    tabprefix: "\uE802 &f"
+  LuckPerms Command:          /lp group rank_support meta setprefix 100 "\uE802 "
+  EssentialsX (config.yml):   rank_support: '\uE802 {DISPLAYNAME}'
+
+[ rank_player.png ]
+  In-Game Tellraw Test:       /tellraw @a {"text":"\uE803"}
+  TAB Plugin (groups.yml):    tabprefix: "\uE803 &f"
+  LuckPerms Command:          /lp group rank_player meta setprefix 100 "\uE803 "
+  EssentialsX (config.yml):   rank_player: '\uE803 {DISPLAYNAME}'
+

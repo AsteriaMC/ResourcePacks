@@ -1,0 +1,13 @@
+RANK UNICODE MAPPING (JAVA EDITION)
+===================================
+Pack Name: AsteriaMC Resource Pack
+Author: KetamineMisuser
+Target Pack Format: 60
+Generated: 11/24/2026, 10:20:27 AM
+
+Filename		Unicode Char	Unicode Hex	Escape Sequence	Tellraw Command
+--------		------------	-----------	---------------	---------------
+rank_patreon.png		[  ]		U+E800		\uE800		/tellraw @a {"text":"\uE800"}
+rank_staff.png		[  ]		U+E801		\uE801		/tellraw @a {"text":"\uE801"}
+rank_support.png		[  ]		U+E802		\uE802		/tellraw @a {"text":"\uE802"}
+rank_player.png		[  ]		U+E803		\uE803		/tellraw @a {"text":"\uE803"}

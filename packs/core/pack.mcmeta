@@ -1,0 +1,10 @@
+{
+    "pack": {
+        "pack_format": 84,
+        "description": "AsteriaMC Resource Pack \n§7By KetamineMisuser",
+        "supported_formats": {
+            "min_inclusive": 1,
+            "max_inclusive": 99
+        }
+    }
+}
