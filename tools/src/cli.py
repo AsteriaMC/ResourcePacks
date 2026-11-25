@@ -1,7 +1,7 @@
 import argparse
 
 from . import commands  # noqa: F401  (imports all commands so they register)
-from .command import execute, list_commands, valid_args, script_exists
+from .core.command import execute, list_commands, valid_args, script_exists
 
 
 def main():

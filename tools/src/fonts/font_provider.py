@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 from pydantic import BaseModel, Field, TypeAdapter, model_validator
 
-from src.settings import get_settings
+from src.core.settings import get_settings
 
 """ 
 "//": "\uE000",

@@ -1,8 +1,8 @@
 from rich import print as rprint
 
-from src.command import ScriptCommand
+from src.core.command import ScriptCommand
 from src.fonts.pack import get_all_packs
-from src.settings import get_settings
+from src.core.settings import get_settings
 
 class PacksCreateResourcePack(ScriptCommand):
     script_name = "packs_zip"

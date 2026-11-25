@@ -2,7 +2,7 @@ import zipfile
 from pathlib import Path
 from dataclasses import dataclass, field
 
-from src.settings import get_settings
+from src.core.settings import get_settings
 from .font_provider import FontFile, FontProvider, FontUnicodeRange, BitmapProvider
 
 

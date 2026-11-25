@@ -1,6 +1,6 @@
 from rich import print as rprint
 
-from src.command import ScriptCommand
+from src.core.command import ScriptCommand
 from src.fonts.validation import validate_font_providers__unique_chars, validate_font_providers__file_exists
 from src.fonts.pack import get_next_available_unicode
 
