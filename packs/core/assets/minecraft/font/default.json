@@ -39,6 +39,26 @@
             "chars": [
                 ""
             ]
+        },
+        {
+            "//": "\uE804",
+            "type": "bitmap",
+            "file": "minecraft:font/tab-icon.png",
+            "ascent": 255,
+            "height": 256,
+            "chars": [
+                ""
+            ]
+        },
+        {
+            "//": "\uE805",
+            "type": "bitmap",
+            "file": "minecraft:font/ranks/rank_artist.png",
+            "ascent": 15,
+            "height": 16,
+            "chars": [
+                ""
+            ]
         }
     ]
 }
