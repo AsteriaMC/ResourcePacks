@@ -1,3 +1,4 @@
+import zipfile
 from pathlib import Path
 from dataclasses import dataclass, field
 
@@ -44,6 +45,12 @@ class ResourcePack(_FontMixin):
             fonts=fonts,
         )
 
+    def zip(self, dest : Path, name : str):
+        """ zips everything in self.path except filtered to dest path"""
+        with zipfile.ZipFile(dest / name, 'w', zipfile.ZIP_DEFLATED) as zf:
+            for file in self.path.rglob('*'):
+                if file.is_file():
+                    zf.write(file, arcname=file.relative_to(self.path))
 
 def get_all_packs():
     """ every folder under PACKS_PATH that has a pack.mcmeta,
