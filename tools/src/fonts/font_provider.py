@@ -1,6 +1,6 @@
 import json
+from pathlib import Path
 from dataclasses import dataclass
-from functools import lru_cache
 
 from src.settings import get_settings
 
@@ -33,45 +33,24 @@ class FontProvider:
             type_=d["type"],
             file=d["file"],
             ascent=int(d["ascent"]),
-            height=int(d["height"]),
+            height=int(d.get("height", 8)),  # minecraft defaults height to 8
             chars=d["chars"],
         )
 
-def get_font_files():
-    pack_path = get_settings().PACKS_PATH
-    return pack_path.rglob('*/assets/*/font/default.json')
+    @classmethod
+    def get_font_providers(cls, file_paths : list[Path]):
+        """ list of bitmap FontProvider objects
+        (reference/space/ttf providers have no file/chars and are skipped)
+        """
+        ret = []
 
+        for fpath in file_paths:
+            with open(fpath, 'r', encoding="utf-8") as f:
+                data = json.load(f)
+                for provider in data.get('providers', []):
+                    if provider.get('type') != 'bitmap':
+                        continue
+                    p = cls.from_dict(provider)
+                    ret.append(p)
 
-@lru_cache
-def get_font_providers():
-    """ list of FontProvider objects"""
-    ret = []
-
-    for fpath in get_font_files():
-        with open(fpath, 'r', encoding="utf-8") as f:
-            data = json.load(f)
-            for provider in data.get('providers', []):
-                p = FontProvider.from_dict(provider)
-                ret.append(p)
-
-    return ret
-
-@lru_cache
-def get_font_cache():
-    """ returns a set of characters that are used by FontProviders """
-    ret = set()
-
-    for p in get_font_providers():
-        for c in p.chars:
-            ret.add(c)
-
-    return ret
-
-def get_next_available_code():
-    current = FontUnicodeRange.START
-    fs = get_font_cache()
-
-    for i in range(FontUnicodeRange.START, FontUnicodeRange.END, 1):
-        c = chr(i)
-        if c in fs: continue
-        yield c
+        return ret
