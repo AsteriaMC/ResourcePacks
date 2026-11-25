@@ -6,8 +6,18 @@ from PIL import Image
 from src.core.settings import get_settings
 from src.core.command import ScriptCommand
 from src.fonts.validation import validate_font_providers__unique_chars, validate_font_providers__file_exists
-from src.fonts.pack import get_next_available_unicode, ResourcePack, get_next_available_unicode
+from src.fonts.pack import get_next_available_unicode, ResourcePack, get_all_packs
 from src.fonts.font_provider import BitmapProvider
+from src.fonts.mappings import write_font_mappings
+
+
+class FontMappings(ScriptCommand):
+    script_name = "font_mappings"
+    description = "Writes docs/FONT_MAPPINGS.md of font codes"
+
+    def execute(self):
+        out = write_font_mappings(get_all_packs(), get_settings().DOCS_PATH / "FONT_MAPPINGS.md")
+        rprint(f"[green]wrote {out}[/green]")
 
 class ValidateFontCodes(ScriptCommand):
     script_name = "validate_font_codes"

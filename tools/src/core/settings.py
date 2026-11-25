@@ -4,10 +4,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 _PACKS_PATH = ROOT / 'packs'
 _DIST_PATH = ROOT / 'dist'
+_DOCS_PATH = ROOT / 'docs'
 
 class Settings:
     PACKS_PATH: Path = _PACKS_PATH
     DIST_PATH: Path = _DIST_PATH
+    DOCS_PATH: Path = _DOCS_PATH
 
 @lru_cache
 def get_settings():
