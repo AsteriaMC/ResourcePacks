@@ -27,8 +27,8 @@ def render_font_mappings(packs: list[ResourcePack], md_dir: Path) -> str:
         lines += [
             f"## {pack.path.name}",
             "",
-            "| Preview | File | Unicode | Escape | Copy | Tellraw |",
-            "|:-:|---|---|---|:-:|---|",
+            "| Preview | File | Escape | Copy | Tellraw |",
+            "|:-:|---|---|:-:|---|",
         ]
 
         esc = lambda c: f"\\u{ord(c):04X}"
@@ -37,12 +37,11 @@ def render_font_mappings(packs: list[ResourcePack], md_dir: Path) -> str:
 
             img = _rel(p.texture_path(pack.path), md_dir)
             preview = f'<img src="{img}" height="16">'
-            # unicode = ", ".join(f"\u+{ord(c):04X}" for c in chars)
             escape = " ".join(f"`{esc(c)}`" for c in chars)
             copy = " ".join(f"`{c}`" for c in chars)
             tellraw = f'`/tellraw @a {{"text":"{"".join(esc(c) for c in chars)}"}}`'
 
-            lines.append(f"| {preview} | `{p.file}` | {0} | {escape} | {copy} | {tellraw} |")
+            lines.append(f"| {preview} | `{p.file}` | {escape} | {copy} | {tellraw} |")
 
         lines.append("")
 
