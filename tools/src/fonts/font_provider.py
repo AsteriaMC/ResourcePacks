@@ -19,7 +19,7 @@ from src.settings import get_settings
 """
 
 class FontUnicodeRange:
-    START = 0xE000
+    START = 0xE800
     END = 0xF8FF
 
 
