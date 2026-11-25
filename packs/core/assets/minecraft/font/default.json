@@ -1,7 +1,7 @@
 {
     "providers": [
         {
-            "//": "\uE000",
+            "//": "\uE800",
             "type": "bitmap",
             "file": "minecraft:font/ranks/rank_patreon.png",
             "ascent": 7,
@@ -11,7 +11,7 @@
             ]
         },
         {
-            "//": "\uE001",
+            "//": "\uE801",
             "type": "bitmap",
             "file": "minecraft:font/ranks/rank_staff.png",
             "ascent": 7,
@@ -21,7 +21,7 @@
             ]
         },
         {
-            "//": "\uE002",
+            "//": "\uE802",
             "type": "bitmap",
             "file": "minecraft:font/ranks/rank_support.png",
             "ascent": 7,
@@ -31,7 +31,7 @@
             ]
         },
         {
-            "//": "\uE003",
+            "//": "\uE803",
             "type": "bitmap",
             "file": "minecraft:font/ranks/rank_player.png",
             "ascent": 7,
