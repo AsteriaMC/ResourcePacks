@@ -2,7 +2,7 @@ from pathlib import Path
 from dataclasses import dataclass, field
 
 from src.settings import get_settings
-from .font_provider import FontProvider, FontUnicodeRange
+from .font_provider import FontFile, FontUnicodeRange
 
 
 class _FontMixin:
@@ -34,7 +34,9 @@ class ResourcePack(_FontMixin):
     def load(cls, path : Path):
         # get fonts (base pack + any overlay folders like nexo_1_21_4/)
         font_paths = path.rglob('assets/*/font/default.json')
-        fonts = FontProvider.get_font_providers(font_paths)
+        fonts = []
+        for path in font_paths:
+            fonts += FontFile.model_validate_json(path.read_text("utf-8"))
 
         return cls(
             path=path,

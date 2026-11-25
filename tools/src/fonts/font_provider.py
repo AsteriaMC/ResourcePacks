@@ -1,13 +1,11 @@
+from typing import Annotated, Literal, Union
 import json
 from pathlib import Path
 from dataclasses import dataclass
 
+from pydantic import BaseModel, Field, TypeAdapter, model_validator
+
 from src.settings import get_settings
-
-
-class FontUnicodeRange:
-    START = 0xE000
-    END = 0xF8FF
 
 """ 
 "//": "\uE000",
@@ -19,38 +17,45 @@ class FontUnicodeRange:
                 ""
             ]
 """
-@dataclass
-class FontProvider:
-    type_: str
+
+class FontUnicodeRange:
+    START = 0xE000
+    END = 0xF8FF
+
+
+class BitmapProvider(BaseModel):
+    type: Literal["bitmap"]
     file: str
-    ascent: int 
+    ascent: int
     height: int
-    chars: list[str] 
+    chars: list[str] = Field(min_length=1)
 
-    @classmethod
-    def from_dict(cls, d):
-        return cls(
-            type_=d["type"],
-            file=d["file"],
-            ascent=int(d["ascent"]),
-            height=int(d.get("height", 8)),  # minecraft defaults height to 8
-            chars=d["chars"],
-        )
+    @model_validator(mode="after")
+    def _check(self):
+        #
+        if self.ascent > self.height:
+            raise ValueError(f"ascent {self.ascent} > height {self.height}")
+        
+        # 
+        widths = {len(row) for row in self.chars}
+        if len(widths) > 1:
+            raise ValueError("all chars rows must be the same length")
 
-    @classmethod
-    def get_font_providers(cls, file_paths : list[Path]):
-        """ list of bitmap FontProvider objects
-        (reference/space/ttf providers have no file/chars and are skipped)
-        """
-        ret = []
+        return self
 
-        for fpath in file_paths:
-            with open(fpath, 'r', encoding="utf-8") as f:
-                data = json.load(f)
-                for provider in data.get('providers', []):
-                    if provider.get('type') != 'bitmap':
-                        continue
-                    p = cls.from_dict(provider)
-                    ret.append(p)
+    def texture_path(self, pack_root):
+        ns, _, path = self.file.rpartition(":")
+        return pack_root / "assets" / (ns or "minecraft") / "textures" / path
 
-        return ret
+# add more providers here
+FontProvider = Annotated[
+    Union[BitmapProvider,],
+    Field(discriminator="type"),
+]
+
+class FontFile(BaseModel):
+    """ for loading defaults.json
+    >> FontFile.model_validate_json(path.read_text("utf-8"))
+    """
+    providers: list[FontProvider]
+
