@@ -1,4 +1,8 @@
+from typing import ClassVar
+
+import re
 import zipfile
+import json
 from pathlib import Path
 from dataclasses import dataclass, field
 
@@ -27,9 +31,29 @@ class _FontMixin:
             c = chr(i)
             if c in fs: continue
             yield c
+        
+    def save_fonts(self):
+        data = FontFile(providers=self.fonts).model_dump()
+
+        # put the "//" first
+        data["providers"] = [
+            {"//": p.pop("//"), **p} if "//" in p else p
+            for p in data["providers"]
+        ]
+
+        text = json.dumps(data, indent=4, ensure_ascii=False)
+        text = re.sub(
+            r'^(\s*"//": ")(.*)(",?)$',
+            lambda m: m[1] + "".join(c if c.isascii() else f"\\u{ord(c):04X}" for c in m[2]) + m[3],
+            text,
+            flags=re.MULTILINE,
+        )
+        save_path : Path = self.path / self.FONT_FILE_PATH
+        save_path.write_text(text + "\n", encoding="utf-8")
 
 @dataclass
 class ResourcePack(_FontMixin):
+    FONT_FILE_PATH : ClassVar = Path("assets/minecraft/font/default.json")
     path : Path = field(default_factory=Path)
     fonts : list[FontProvider] = field(default_factory=list)
 

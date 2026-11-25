@@ -1,7 +1,7 @@
 from functools import lru_cache
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 _PACKS_PATH = ROOT / 'packs'
 _DIST_PATH = ROOT / 'dist'
 

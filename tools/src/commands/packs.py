@@ -10,6 +10,6 @@ class PacksCreateResourcePack(ScriptCommand):
 
     def execute(self):
         s = get_settings() 
-        for i, pack in enumerate(get_all_packs()):
-            pack.zip(s.DIST_PATH, f'{i}.zip')
+        for pack in get_all_packs():
+            pack.zip(s.DIST_PATH, f'{pack.path.name}.zip')
 

@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from dataclasses import dataclass
 
-from pydantic import BaseModel, Field, TypeAdapter, model_validator
+from pydantic import BaseModel, Field, TypeAdapter, model_validator, ConfigDict
 
 from src.core.settings import get_settings
 
@@ -24,6 +24,7 @@ class FontUnicodeRange:
 
 
 class BitmapProvider(BaseModel):
+    model_config = ConfigDict(extra="allow")
     type: Literal["bitmap"]
     file: str
     ascent: int
