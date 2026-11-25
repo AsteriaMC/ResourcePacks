@@ -59,6 +59,16 @@
             "chars": [
                 ""
             ]
+        },
+        {
+            "//": "\uE806",
+            "type": "bitmap",
+            "file": "minecraft:font/emoji/capoo.png",
+            "ascent": 10,
+            "height": 12,
+            "chars": [
+                ""
+            ]
         }
     ]
 }
