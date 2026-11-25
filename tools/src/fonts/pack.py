@@ -48,12 +48,14 @@ class _FontMixin:
             text,
             flags=re.MULTILINE,
         )
-        save_path : Path = self.path / self.FONT_FILE_PATH
+        save_path : Path = self.get_font_file_path()
         save_path.write_text(text + "\n", encoding="utf-8")
 
 @dataclass
 class ResourcePack(_FontMixin):
     FONT_FILE_PATH : ClassVar = Path("assets/minecraft/font/default.json")
+    TEXTURE_PATH : ClassVar = Path("assets/minecraft/textures")
+
     path : Path = field(default_factory=Path)
     fonts : list[FontProvider] = field(default_factory=list)
 
@@ -75,6 +77,12 @@ class ResourcePack(_FontMixin):
             for file in self.path.rglob('*'):
                 if file.is_file():
                     zf.write(file, arcname=file.relative_to(self.path))
+
+    def get_font_file_path(self):
+        return self.path / self.FONT_FILE_PATH
+
+    def get_texture_path(self):
+        return self.path / self.TEXTURE_PATH
 
 def get_all_packs():
     """ every folder under PACKS_PATH that has a pack.mcmeta,
