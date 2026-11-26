@@ -79,6 +79,16 @@
             "chars": [
                 ""
             ]
+        },
+        {
+            "//": "\uE808",
+            "type": "bitmap",
+            "file": "minecraft:font/emoji/catpoo.png",
+            "ascent": 10,
+            "height": 12,
+            "chars": [
+                ""
+            ]
         }
     ]
 }
