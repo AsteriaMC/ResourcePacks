@@ -1,0 +1,48 @@
+name: Release Resource Pack
+
+on:
+  push:
+    branches: [production]
+  pull_request:
+    branches: [production]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: tools
+
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements*.txt
+    
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Package
+        run: py -m src packs_zip
+
+      - name: SHA-1
+        run: |
+          cd dist
+          sha1sum core.zip | cut -d ' ' -f 1 > core.zip.sha1
+
+      - name: Publish release
+        working-directory: dist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "build-${{ github.run_number }}" *.zip *.sha1 \
+            --target "${{ github.sha }}" \
+            --title "Build ${{ github.run_number }}" \
+            --generate-notes --latest
