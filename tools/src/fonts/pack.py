@@ -73,6 +73,7 @@ class ResourcePack(_FontMixin):
 
     def zip(self, dest : Path, name : str):
         """ zips everything in self.path except filtered to dest path"""
+        dest.mkdir(parents=True, exist_ok=True)
         with zipfile.ZipFile(dest / name, 'w', zipfile.ZIP_DEFLATED) as zf:
             for file in self.path.rglob('*'):
                 if file.is_file():
