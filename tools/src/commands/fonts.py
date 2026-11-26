@@ -76,3 +76,6 @@ class FontAdd(ScriptCommand):
         ))
         core.save_fonts()
         rprint(f"[green]{png_path.name} mapped to \\u{ord(char):04X}[/green]")
+        
+        #
+        FontMappings.execute(None)
