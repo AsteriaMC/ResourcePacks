@@ -1,0 +1,35 @@
+name: Test and Format
+
+on:
+  push:
+    branches: [main, production]
+  pull_request:
+    branches: [main, production]
+
+jobs:
+  test-and-format:
+    name: test and format
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: tools
+
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements*.txt
+        
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+      
+      - name: Pytest
+        run: pytest
+      
