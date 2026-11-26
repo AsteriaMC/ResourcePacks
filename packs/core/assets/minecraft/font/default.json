@@ -69,6 +69,16 @@
             "chars": [
                 ""
             ]
+        },
+        {
+            "//": "\uE807",
+            "type": "bitmap",
+            "file": "minecraft:font/emoji/assteria.png",
+            "ascent": 10,
+            "height": 12,
+            "chars": [
+                ""
+            ]
         }
     ]
 }
