@@ -44,8 +44,8 @@
             "//": "\uE804",
             "type": "bitmap",
             "file": "minecraft:font/tab-icon.png",
-            "ascent": 32,
-            "height": 64,
+            "ascent": 51,
+            "height": 96,
             "chars": [
                 ""
             ]
